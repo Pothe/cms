@@ -50,9 +50,14 @@
 
       foreach ($error as $key => $value) {
         if (empty($value)) {
-            register_user($username ,$email,$password );
-            login_user($username,$password);
+            
+          unset($error);
+            // login_user($username,$password);
          
+        }
+
+        if(empty($error)){
+          register_user($username ,$email,$password );
         }
 
         

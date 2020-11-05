@@ -180,20 +180,20 @@ function exit_email($email){
 
 
 function register_user($username,$email,$password){
-  global $conn;
-      $username = trim($_POST['username']);
-      $email = trim($_POST['email']);
-      $password = trim($_POST['password']);
+      global $conn;
+      // $username = trim($_POST['username']);
+      // $email = trim($_POST['email']);
+      // $password = trim($_POST['password']);
   
-        if (exit_username($username)) {
+      //   if (exit_username($username)) {
             
-        } 
+      //   } 
 
           // if(!empty($username) && !empty($Email) && !empty($password)){
 
           // mysqli_real_escape-string to avoid string (called sql injection)
           $username = mysqli_real_escape_string($conn, $username);
-          $Email = mysqli_real_escape_string($conn, $Email);
+          $email = mysqli_real_escape_string($conn, $email);
           $password = mysqli_real_escape_string($conn, $password);
           // នេះជាការប្រើប្រាស់ Crypt Password ដែលមានលក្ខណៈខ្លីជាមុន
           $password = password_hash($password, PASSWORD_BCRYPT, array('cost' =>12));
