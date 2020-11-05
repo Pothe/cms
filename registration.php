@@ -47,6 +47,8 @@
            $error['password'] = 'Password is empty';
       }  
 
+      
+      
 
       foreach ($error as $key => $value) {
         if (empty($value)) {
@@ -55,29 +57,19 @@
             // login_user($username,$password);
          
         }
-
-        if(empty($error)){
-          register_user($username ,$email,$password );
-        }
-
         
       }
 
 
+      if(empty($error)){
+        register_user($username ,$email,$password );
+      }
+
+
     }
-
-
-
-
-        // second conditional
-
-
+     // second conditional
      // end main if
-
-
-     ?>
-
-
+    ?>
     <!-- Page Content -->
     <div class="container">
 
@@ -113,10 +105,5 @@
         </div> <!-- /.row -->
     </div> <!-- /.container -->
 </section>
-
-
-        <hr>
-
-
-
+<hr>
 <?php include "includes/footer.php";?>
