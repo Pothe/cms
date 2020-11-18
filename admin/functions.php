@@ -53,9 +53,12 @@ function insert_categories(){
          This field should not be emplty
             </div>";
         }else{
-         $query = "INSERT INTO categories (cat_title)VALUE('$cat_title')";
-        $create_category = mysqli_query($conn,$query);
-    if(!$create_category){
+          $stmt =mysqli_prepare($conn,"INSERT INTO categories (cat_title)VALUE(?)");
+          mysqli_stmt_bind_param($stmt,'s',$cat_title);
+          mysqli_stmt_execute($stmt);
+        //  $query = "INSERT INTO categories (cat_title)VALUE('$cat_title')";
+        // $create_category = mysqli_query($conn,$query);
+    if(!$stmt){
     die('Query Fail' .mysqli_error($conn));
         }
       }
@@ -180,20 +183,20 @@ function exit_email($email){
 
 
 function register_user($username,$email,$password){
-  global $conn;
-      $username = trim($_POST['username']);
-      $email = trim($_POST['email']);
-      $password = trim($_POST['password']);
+      global $conn;
+      // $username = trim($_POST['username']);
+      // $email = trim($_POST['email']);
+      // $password = trim($_POST['password']);
   
-        if (exit_username($username)) {
+      //   if (exit_username($username)) {
             
-        } 
+      //   } 
 
           // if(!empty($username) && !empty($Email) && !empty($password)){
 
           // mysqli_real_escape-string to avoid string (called sql injection)
           $username = mysqli_real_escape_string($conn, $username);
-          $Email = mysqli_real_escape_string($conn, $Email);
+          $email = mysqli_real_escape_string($conn, $email);
           $password = mysqli_real_escape_string($conn, $password);
           // នេះជាការប្រើប្រាស់ Crypt Password ដែលមានលក្ខណៈខ្លីជាមុន
           $password = password_hash($password, PASSWORD_BCRYPT, array('cost' =>12));
@@ -276,20 +279,45 @@ function register_user($username,$email,$password){
   $_SESSION['lastname'] = $db_user_lastname ;
   $_SESSION['user_role'] = $db_role;
   // give permisson to access page
-  if ($_SESSION['user_role'] == "administrator") {
-    header("Location: ../admin");
-  }elseif ($_SESSION['user_role'] == "student") {
-   header("Location: ../student_site");
-
+  // if ($_SESSION['user_role'] == "administrator") {
+    header("Location:../admin");
+  // }elseif ($_SESSION['user_role'] == "student") {
+  //  header("Location: ../student_site");
   }else {
     header("Location: ../index.php");
-      }
-
-  }
-
     }
 
   }
+
+}
+
+
+// delete function  
+ function delete($delete){
+    global $conn;
+    if (isset($_SESSION['user_role'])) {
+    if ($_SESSION['user_role'] == 'administrator') {
+      $delete = mysqli_real_escape_string($conn,$delete);
+      $query = "DELETE  FROM posts WHERE post_id = $delete";
+      $delete_query = mysqli_query($conn,$query);
+      confirmQuery($delete_query);
+      header("Location: Posts.php");
+         }
+
+      }
+
+ }
+  
+
+// Redirect to page 
+function Redirect_to($direction){
+  global $conn;
+  header("location: $direction");
+
+}
+
+
+
 
 
 

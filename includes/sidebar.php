@@ -62,7 +62,7 @@
                             <ul class="list-unstyled">
                                <?php
                                     $query = "SELECT * FROM categories";
-                                    $cat_side = mysqli_query($conn, $query);
+                                    $cat_side = mysqli_query($conn,$query);
                                    while($row = mysqli_fetch_assoc($cat_side)){
                                      $cat_id = $row['cat_id'];
                                     $categories = strtoupper($row['cat_title']);

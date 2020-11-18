@@ -19,8 +19,8 @@ include('includes/header.php');
                     $Post_id = $_GET['p_id'];
                 // TO COUNT VIEW WHEN USER VIEW A SINGLE POST
 
-                 $query = "UPDATE posts SET Post_view_count = Post_view_count + 1 ";
-                 $query .= "WHERE Post_Id = $Post_id ";
+                 $query = "UPDATE posts SET post_view_count = post_view_count + 1 ";
+                 $query .= "WHERE Post_Id = $Post_id";
                  if (!$query ) {
                    die("QUERY FAIL".mysqli_error($conn));
                  }

@@ -136,6 +136,7 @@ include("delete_modal.php");
             ?>
             <!-- clear our code like this -->
             <th scope='col'><input class='checkboxes' type='checkbox' name='checked[]' value='<?php echo $Post_Id;?> '></th>
+           
             <?php
             echo "<th scope='col'>{$Post_Id}</th>";
             // $query =" SELECT * FROM categories WHERE cat_id = {$Post_category_id}";
@@ -163,14 +164,27 @@ include("delete_modal.php");
             $comment_count = mysqli_num_rows($send_comment_count);
             echo "<td scope='col'><a  href='post_comments.php?id=$Post_Id'>$comment_count</a></td>";
             if ($Post_status== 'draft') {
-              echo "<td scope='col' class='btn btn-danger btn-sm' style='margin-top:10px; width:100%'>{$Post_status}</td>";
+              echo "<td scope='col'><span class='btn btn-danger btn-sm' style='width:100%'>{$Post_status}</span></td>";
             }else {
-              echo "<td scope='col' class='btn btn-success btn-sm' style='margin-top:10px; width:100%'>{$Post_status}</td>";
+              echo "<td scope='col'><span class='btn btn-primary btn-sm'style='width:100%'>{$Post_status}</span></td>";
             }
-            echo "<td scope='col'><a href='../post.php?p_id={$Post_Id}'>View Post</a> </td>";
-            echo "<td scope='col'><a  rel='$Post_Id' href='javascript:void(0)' class='delete_link btn btn-danger'>Delete</a></td>";
+            echo "<td scope='col'><a  class='btn btn-primary btn-sm' href='../post.php?p_id={$Post_Id}'>View Post</a> </td>";
+           
+            ?>
+            <!-- form delete via -->
+            <form method="post">
+            <input type="hidden" name="post_id" value="<?php echo $Post_Id ;?>">
+              <?php echo '<td><input type="submit" class="btn btn-danger btn-sm" name="delete" value="Delete"> </td>'; 
+              // echo "<td scope='col'><a  rel='$Post_Id' href='javascript:void(0)' class='delete_link btn btn-danger'>Delete</a></td>";
             // echo "<td scope='col'><a onClick=\"javascript: return confirm('Are you sure to delete this?'); \" href='posts.php?delete={$Post_Id}'>Delete</a>
-            echo"<th scope='col'><a href='posts.php?source=edit_post&update_post={$Post_Id}'>Edit</a></td>";
+
+              ?>
+            </form>
+
+            
+            <?php
+            
+            echo"<th scope='col'><a class='btn btn-primary btn-sm' href='posts.php?source=edit_post&update_post={$Post_Id}'><i class='fas fa-pencil-alt'></i></a></td>";
             echo "<td scope='col'><a href='posts.php?reset={$Post_Id}'>{$post_view_count}</a></td>";
             echo "</tr>";
           }
@@ -187,18 +201,9 @@ include("delete_modal.php");
 
 
         <?php
-         if(isset($_GET['delete'])){
+         if(isset($_POST['delete'])){
            // to prevent front end delete
-           if (isset($_SESSION['user_role'])) {
-            if ($_SESSION['user_role'] == 'administrator') {
-                $delete = mysqli_real_escape_string($conn,$_GET['delete']);
-                $query = "DELETE  FROM posts WHERE post_id = $delete";
-                $delete_query = mysqli_query($conn, $query);
-                confirmQuery($delete_query);
-                header("Location: Posts.php");
-         }
-
-      }
+           delete($_POST['post_id']);
 
   }
           // function to reset view post comment
