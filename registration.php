@@ -37,10 +37,24 @@
       }
        if ($password  == '') {
            $error['password'] = 'Password is empty';
+<<<<<<< HEAD
       } 
       foreach ($error as $key => $value) {
         if (empty($value)) {            
           unset($error[$key]);                   
+=======
+      }  
+
+      
+      
+
+      foreach ($error as $key => $value) {
+        if (empty($value)) {
+            
+          unset($error);
+            // login_user($username,$password);
+         
+>>>>>>> 87797e058069fce053b63ec1f26b151e2a568cd3
         }
         
       }// foreach
@@ -50,6 +64,14 @@
         login_user($username, $password);
       }
 
+<<<<<<< HEAD
+=======
+      if(empty($error)){
+        register_user($username ,$email,$password );
+      }
+
+
+>>>>>>> 87797e058069fce053b63ec1f26b151e2a568cd3
     }
      // second conditional
      // end main if
