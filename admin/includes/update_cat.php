@@ -26,10 +26,13 @@
                                 ////// update QUERY
                                 
                                 if(isset($_POST['update'])){
-                                    $the_cat_title = $_POST['cat_title'];                                    
-                                    $query =" UPDATE categories SET cat_title ='{$the_cat_title}' WHERE cat_id = '{$edit_cat}'";
-                                    $update_cat_query = mysqli_query($conn,$query);
-                                     if(!$update_cat_query){
+                                    $the_cat_title = $_POST['cat_title'];
+                                    $stmt = mysqli_prepare($conn,"UPDATE categories SET cat_title =? WHERE cat_id = ?");
+                                    mysqli_stmt_bind_param($stmt,'si',$the_cat_title,$edit_cat) ;
+                                    mysqli_stmt_execute($stmt);                                   
+                                    // $query =" UPDATE categories SET cat_title ='{$the_cat_title}' WHERE cat_id = '{$edit_cat}'";
+                                    // $update_cat_query = mysqli_query($conn,$query);
+                                     if(!$stmt){
                                          die("QUERY FAIL".mysqli_error($conn));
                                      }
                                     header("Location: categories.php");
