@@ -4,8 +4,8 @@
                                 <label for="update">Update </label>
                                 
                                 <?php 
-                                 if(isset($_GET['edit'])){
-                                     $edit_cat = $_GET['edit'];
+                                 // if(isset($_GET['edit'])){
+                                 //     $edit_cat = $_GET['edit'];
                                      $query =" SELECT * FROM categories WHERE cat_id = $edit_cat";
                                      $select_cat_query = mysqli_query($conn,$query);
                                      while($row = mysqli_fetch_assoc($select_cat_query) ){
@@ -18,7 +18,7 @@
                                 <input value="<?php if(isset($cat_title)) {echo $cat_title;} ?>" type="text" name="cat_title" class="form-control" >
                                   
                                       
-                                <?php  }}   ?>   
+                                <?php  }//}   ?>   
                                         
                                                                                                      
                             <?php

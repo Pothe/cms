@@ -19,12 +19,19 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                 <?php
-
-                    $query = " SELECT * FROM categories LIMIT 3";
-                    $myqli_query_and_query = mysqli_query($conn,$query);
-                    while($row = mysqli_fetch_assoc($myqli_query_and_query)){
-                       $cat_id = $row['cat_id'];
-                        $cat_title = $row['cat_title'];
+                    $stmt = mysqli_prepare($conn,"SELECT cat_id,cat_title FROM categories ");
+                   
+                    // mysqli_stmt_bind_param($stmt,'i',$limit);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_bind_result($stmt,$cat_id,$cat_title);
+                    while ($row = mysqli_stmt_fetch($stmt)) {
+                        # code...
+                    
+                    // $query = " SELECT * FROM categories";
+                    // $myqli_query_and_query = mysqli_query($conn,$query);
+                    // while($row = mysqli_fetch_assoc($myqli_query_and_query)){
+                    //    $cat_id = $row['cat_id'];
+                    //     $cat_title = $row['cat_title'];
 
                         // category active
                         $categroy_class ='';

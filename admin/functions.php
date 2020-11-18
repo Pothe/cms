@@ -93,11 +93,11 @@ function list_categories(){
 function update_categories(){
 
       global $conn;
-                        if(isset($_GET['edit'])){
-                            $edit_cat= $_GET['edit'];
-                            include('includes/update_cat.php');
-                        }
-                      }
+        if(isset($_GET['edit'])){
+          $edit_cat= $_GET['edit'];
+          include('includes/update_cat.php');
+            }
+          }
 
 function   delete_categories(){
      global $conn;
